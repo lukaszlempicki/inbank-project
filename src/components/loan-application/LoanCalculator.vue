@@ -285,14 +285,25 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 22px;
-  height: 58px;
+  padding: 11px 22px;
+  min-height: 58px;
   transition: all 0.3s ease-in-out;
+
+  @media screen and (min-width: $breakpoint-lg) {
+  }
 }
 
 .summary-view {
   &:hover {
     cursor: pointer;
+  }
+}
+
+.edit-view form {
+  flex-direction: column;
+
+  @media screen and (min-width: $breakpoint-md) {
+    flex-direction: row;
   }
 }
 
@@ -372,7 +383,7 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 22px;
+  margin-right: 0;
   min-width: 162px;
 
   .form-control:focus {
@@ -412,6 +423,10 @@ form {
 
     &:hover {
       border-bottom: 1px solid #fdfdfd;
+    }
+
+    @media screen and (min-width: $breakpoint-lg) {
+      margin-right: 22px;
     }
   }
 
