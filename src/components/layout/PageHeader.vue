@@ -52,14 +52,8 @@ nav {
 }
 
 .logo {
-  transition: box-shadow 0.3s ease-in-out;
-  box-shadow: 0px 1px 10px 4px #fff;
   border-radius: 100%;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0px 1px 15px 4px #5948ad;
-  }
+  cursor: pointer;
 }
 
 .dropdown {
@@ -69,14 +63,5 @@ nav {
   cursor: pointer;
   height: 47px;
   width: 47px;
-
-  transition: box-shadow 0.3s ease-in-out;
-  box-shadow: 0px 1px 10px 4px #fff;
-  border-radius: 100%;
-
-  &:hover {
-    box-shadow: 0px 1px 15px 4px #5948ad;
-    border-radius: 100%;
-  }
 }
 </style>
