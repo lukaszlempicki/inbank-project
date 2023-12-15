@@ -1,5 +1,5 @@
 <template>
-  <div class="loan-calculator">
+  <div class="loan-calculator" ref="wrapper">
     <Transition name="fade" mode="out-in">
       <div
         key="1"
@@ -170,6 +170,25 @@ export default {
     changeValue(event) {
       console.log("changeValue", event);
     },
+    fixLoanCalculatorValues() {
+      if (this.form.loanAmount < 200) {
+        this.form.loanAmount = 200;
+      } else if (this.form.loanAmount > 10000) {
+        this.form.loanAmount = 10000;
+      }
+
+      if (this.form.loanDuration < 6) {
+        this.form.loanDuration = 6;
+      } else if (this.form.loanDuration > 36) {
+        this.form.loanDuration = 36;
+      }
+    },
+    handleClickOutside(event) {
+      const targetElement = this.$refs.wrapper;
+      if (!targetElement.contains(event.target)) {
+        this.fixLoanCalculatorValues();
+      }
+    },
     submitForm() {
       this.$v.$touch();
 
@@ -180,6 +199,14 @@ export default {
       // Close edit mode after submission
       this.showSummaryMode();
     },
+  },
+  mounted() {
+    // Attach a click event listener to the document
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  beforeDestroy() {
+    // Remove the click event listener when the component is about to be destroyed
+    document.removeEventListener("click", this.handleClickOutside);
   },
 };
 </script>
@@ -288,6 +315,7 @@ form {
   justify-content: center;
   align-items: center;
   margin-right: 22px;
+  min-width: 162px;
 
   .form-control:focus {
     box-shadow: none;
@@ -298,6 +326,7 @@ form {
     line-height: 24px;
     font-weight: 300;
     margin-right: 10px;
+    min-width: 56px;
   }
 
   input[type="number"] {
@@ -331,7 +360,7 @@ form {
   .invalid-feedback {
     position: absolute;
     bottom: -4px;
-    left: -6px;
+    left: 0;
     font-size: 10px;
     font-weight: 300;
   }
