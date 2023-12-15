@@ -7,3 +7,9 @@
     </b-row>
   </b-container>
 </template>
+
+<script>
+export default {
+  name: "PageBody",
+};
+</script>

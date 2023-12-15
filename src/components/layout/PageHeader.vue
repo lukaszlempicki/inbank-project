@@ -25,6 +25,7 @@
 
 <script>
 export default {
+  name: "PageHeader",
   data() {
     return {
       logoProps: {
