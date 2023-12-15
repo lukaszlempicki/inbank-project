@@ -1,6 +1,7 @@
 <template>
   <b-form class="loan-application-form">
-    Loan application form <br />
+    <div class="component-title">Loan application form</div>
+
     <LoanCalculator />
     <CustomerContact />
     <CustomerPersonalInformation />
@@ -8,11 +9,14 @@
     <b-form-checkbox v-model="noPEPInFamily"
       >Neither I nor my family member is PEP</b-form-checkbox
     >
+    <b-icon icon="info-circle" style="color: var(--primary-color)"></b-icon>
+
     <PEP v-if="!noPEPInFamily" />
 
     <b-form-checkbox v-model="isUltimateBeneficiaryCustomer"
       >I’m the ultimate beneficiary
     </b-form-checkbox>
+    <b-icon icon="info-circle" style="color: var(--primary-color)"></b-icon>
 
     <AdditionalBeneficiary v-if="isUltimateBeneficiaryCustomer" />
 
@@ -55,7 +59,9 @@ export default {
 
 <style lang="scss" scoped>
 .loan-application-form {
-  margin-top: 22px;
-  background-color: #f1f1f1;
+  position: relative;
+  margin: 22px 0;
+  padding: 22px 0;
+  border: 2px dotted #f9f9f9;
 }
 </style>

@@ -1,5 +1,21 @@
 @import "./fonts/open-sans.scss";
 
+:root {
+  --primary-color: #2b0a57;
+  --secondary-color: #5948ad;
+  --tertiary-color: #f8f5fc;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
+}
+
+.component-title {
+  position: absolute;
+  background-color: aquamarine;
+  top: 0;
+  left: 0;
+  padding: 4px;
+  font-size: 10px;
+  color: var(--primary-color);
 }
