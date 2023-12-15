@@ -1,7 +1,5 @@
 <template>
   <b-form class="loan-application-form">
-    <div class="component-title">Loan application form</div>
-
     <LoanCalculator />
     <CustomerContact />
     <CustomerPersonalInformation />
@@ -60,8 +58,6 @@ export default {
 <style lang="scss" scoped>
 .loan-application-form {
   position: relative;
-  margin: 22px 0;
   padding: 22px 0;
-  border: 2px dotted #f9f9f9;
 }
 </style>

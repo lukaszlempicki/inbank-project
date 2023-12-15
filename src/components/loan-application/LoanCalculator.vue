@@ -271,6 +271,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "~/src/assets/styles/variables.scss";
+@import "~/src/assets/styles/animations.scss";
 
 .loan-calculator {
   position: relative;
@@ -278,6 +279,7 @@ export default {
   background-color: var(--primary-color);
   color: #fdfdfd;
   border-radius: 30px;
+  min-height: 62px;
 }
 
 .summary-view,
@@ -425,8 +427,8 @@ form {
       border-bottom: 1px solid #fdfdfd;
     }
 
-    @media screen and (min-width: $breakpoint-lg) {
-      margin-right: 22px;
+    @media screen and (min-width: $breakpoint-md) {
+      margin-right: 0;
     }
   }
 
@@ -565,18 +567,5 @@ form {
   .currency {
     bottom: 4px;
   }
-}
-
-.fade-enter-active {
-  transition: all 0.3s ease-in-out;
-  opacity: 1;
-}
-.fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
