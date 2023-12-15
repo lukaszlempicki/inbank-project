@@ -50,10 +50,29 @@
                   <span class="currency-appendinx">€</span>
                 </b-input-group-text>
 
-                <!-- <b-dropdown text="Dropdown" variant="outline-secondary">
-                <b-dropdown-item>Action C</b-dropdown-item>
-                <b-dropdown-item>Action D</b-dropdown-item>
-              </b-dropdown> -->
+                <b-dropdown text="" variant="primary" class="input-dropdown">
+                  <template
+                    v-for="(value, index) in arrayRange(200, 10000, 500).concat(
+                      [10000]
+                    )"
+                  >
+                    <b-dropdown-item
+                      v-bind:key="index"
+                      value="value"
+                      @click="setLoanAmount(value)"
+                    >
+                      <span v-if="value === 200" class="message"
+                        >Min. allowed</span
+                      >
+                      <span v-if="value === 10000" class="message"
+                        >Max allowed</span
+                      >
+                      <span class="value">
+                        {{ value }}<span class="currency">€</span>
+                      </span>
+                    </b-dropdown-item>
+                  </template>
+                </b-dropdown>
               </template>
             </b-input-group>
 
@@ -73,7 +92,7 @@
               !$v.form.loanDuration.$pending && $v.form.loanDuration.between
             "
           >
-            <b-input-group append="months">
+            <b-input-group>
               <b-form-input
                 v-model="form.loanDuration"
                 id="LoanDuration"
@@ -84,12 +103,31 @@
                 number
               />
 
-              <!-- <template #append>
-              <b-dropdown text="Dropdown" variant="outline-secondary">
-                <b-dropdown-item>Action C</b-dropdown-item>
-                <b-dropdown-item>Action D</b-dropdown-item>
-              </b-dropdown>
-            </template> -->
+              <template #append>
+                <b-input-group-text>
+                  <span class="months-appendinx">months</span>
+                </b-input-group-text>
+
+                <b-dropdown text="" variant="primary" class="input-dropdown">
+                  <template v-for="(value, index) in arrayRange(6, 37, 3)">
+                    <b-dropdown-item
+                      v-bind:key="index"
+                      value="value"
+                      @click="setLoanDuration(value)"
+                    >
+                      <span v-if="value === 6" class="message"
+                        >Min. allowed</span
+                      >
+                      <span v-if="value === 36" class="message"
+                        >Max allowed</span
+                      >
+                      <span class="value">
+                        {{ value }}<span class="period"> months</span>
+                      </span>
+                    </b-dropdown-item>
+                  </template>
+                </b-dropdown>
+              </template>
             </b-input-group>
             <b-form-invalid-feedback
               id="loan-duration-error"
@@ -123,8 +161,6 @@
 <script>
 import { required, between, minValue } from "vuelidate/lib/validators";
 
-// TODO: Add selectable values next to input fields by using  Dropdown addons (append + b-dropdown-item)
-
 export default {
   name: "LoanCalculator",
   data() {
@@ -140,11 +176,15 @@ export default {
   validations: {
     form: {
       loanAmount: {
+        min: 200,
+        max: 10000,
         required,
         between: between(200, 10000),
         minValue: minValue(200),
       },
       loanDuration: {
+        min: 6,
+        max: 36,
         required,
         between: between(6, 36),
         minValue: minValue(6),
@@ -158,6 +198,13 @@ export default {
             (this.form.loanAmount / this.form.loanDuration) * 1.27 * 100
           ) / 100
         : 0;
+    },
+    loanAmountOptions() {
+      return this.arrayRange(
+        this.form.loanAmount.min,
+        this.form.loanAmount.max,
+        500
+      );
     },
   },
   methods: {
@@ -198,6 +245,17 @@ export default {
 
       // Close edit mode after submission
       this.showSummaryMode();
+    },
+    arrayRange(start, stop, step = 1) {
+      return Array(Math.ceil((stop - start) / step))
+        .fill(start)
+        .map((x, y) => x + y * step);
+    },
+    setLoanAmount(value) {
+      this.form.loanAmount = value;
+    },
+    setLoanDuration(value) {
+      this.form.loanDuration = value;
     },
   },
   mounted() {
@@ -378,9 +436,66 @@ form {
     margin: 0;
   }
 
+  .dropdown-toggle,
+  .dropdown-toggle:active {
+    background-color: transparent;
+    border: none;
+  }
+
+  .dropdown-item {
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .dropdown-menu {
+    padding: 10px;
+    box-shadow: 0px 10px 30px 0px #00000005;
+    border-radius: 5px;
+
+    li {
+      font-size: 16px;
+
+      .dropdown-item {
+        padding: 8px 0;
+      }
+
+      &:first-of-type,
+      &:last-of-type {
+        .dropdown-item {
+          position: relative;
+          text-align: left;
+          border-bottom: 1px solid var(--primary-color);
+          padding: 12px 0 4px;
+          font-weight: 300;
+          color: #413c3c;
+        }
+
+        .value {
+          display: inline-block;
+          margin-bottom: 0;
+          line-height: 0;
+        }
+      }
+      .message {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 10px;
+      }
+    }
+  }
+
   &.edit-amount {
     input[type="number"] {
       padding-right: 16px;
+    }
+
+    .input-group-text {
+      top: 0;
+      bottom: auto;
+      font-size: 16px;
+      left: auto;
+      right: 40px;
     }
   }
 
@@ -391,8 +506,9 @@ form {
 
     .input-group-text {
       top: auto;
-      bottom: 1px;
+      bottom: 9px;
       font-size: 16px;
+      right: 36px;
     }
   }
 
