@@ -41,13 +41,13 @@ header {
   position: relative;
   background-color: transparent;
   text-align: center;
-  margin: 22px;
+  padding: 22px;
 }
 
 nav {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 22px;
+  right: 22px;
 }
 
 .logo {
