@@ -1,28 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-    <SampleComponent />
+    <PageHeader></PageHeader>
+    <PageBody></PageBody>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-import SampleComponent from "./components/SampleComponent.vue";
-
+import PageHeader from "./components/layout/PageHeader.vue";
+import PageBody from "./components/layout/PageBody.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld,
-    SampleComponent,
+    PageHeader,
+    PageBody,
   },
 };
 </script>
-
-<style lang="scss">
-#app {
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
