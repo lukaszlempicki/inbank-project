@@ -142,9 +142,7 @@
             <span class="currency">{{ this.currency }}</span>
           </div>
 
-          <!-- <b-button type="submit" variant="primary">Submit</b-button> -->
-          <!-- TODO: Convert to submit button -->
-          <b-button pill class="btn-save" @click="showSummaryMode">
+          <b-button type="submit" pill class="btn-save" @click="submitForm">
             <b-icon
               icon="chevron-right"
               style="color: var(--primary-color)"
@@ -242,6 +240,8 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
+
+      // TODO: add EMIT event to pass value to parent component or save in vuex state
 
       // Close edit mode after submission
       this.showSummaryMode();

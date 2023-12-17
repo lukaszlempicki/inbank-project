@@ -18,7 +18,7 @@
           <div class="field">
             <b-icon
               class="field-icon"
-              icon="phone"
+              icon="telephone"
               style="color: #9c9c9c"
               width="16"
               height="16"
@@ -47,27 +47,31 @@
           ></b-icon>
         </b-button>
       </div>
+
       <div key="2" v-else class="edit-view">
-        <div class="customer-name">
-          <b-form-input
-            v-model="name"
-            placeholder="Enter your name"
-          ></b-form-input>
-        </div>
+        <div class="customer-name">{{ name }}</div>
 
         <div class="customer-contact-details">
           <label class="section-label">Change your contact Info</label>
 
           <b-form-group
-            label="Phone Number:"
+            label=""
             label-for="phone"
-            :state="!$v.phone.$pending && !$v.phone.required"
+            :state="!$v.phone.$pending && $v.phone.required"
           >
+            <b-icon
+              class="field-icon"
+              icon="telephone"
+              style="color: #9c9c9c"
+              width="16"
+              height="16"
+            />
             <b-form-input
               v-model="phone"
               id="phone"
               type="tel"
-              placeholder="Enter your phone number"
+              placeholder=""
+              class="phone"
             ></b-form-input>
             <b-form-invalid-feedback id="phone-error" :state="$v.phone.required"
               >Phone number is required</b-form-invalid-feedback
@@ -76,23 +80,30 @@
 
           <!-- Email Field -->
           <b-form-group
-            label="Email:"
+            label=""
             label-for="email"
-            :state="!$v.email.$pending && !$v.email.email"
+            :state="!$v.email.$pending && $v.email.required"
           >
+            <b-icon
+              class="email"
+              icon="envelope"
+              style="color: #9c9c9c"
+              width="16"
+              height="16"
+            />
             <b-form-input
               v-model="email"
-              s
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder=""
+              class="email"
             ></b-form-input>
-            <b-form-invalid-feedback id="email-error" :state="$v.email.email"
+            <b-form-invalid-feedback id="email-error" :state="$v.email.required"
               >Enter a valid email address</b-form-invalid-feedback
             >
           </b-form-group>
         </div>
-        <b-button pill class="btn-save" @click="showSummaryMode">
+        <b-button pill class="btn-save" @click="submitForm">
           <b-icon
             icon="chevron-right"
             style="color: var(--tertiary-color)"
@@ -106,7 +117,7 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   name: "CustomerContact",
@@ -120,9 +131,8 @@ export default {
     };
   },
   validations: {
-    name: { required },
     phone: { required },
-    email: { required, email },
+    email: { required },
   },
   methods: {
     // TODO: move isSummaryModeOn, showSummaryMode, showEditMode to mixin
@@ -131,6 +141,18 @@ export default {
     },
     showEditMode() {
       this.isSummaryModeOn = false;
+    },
+    submitForm() {
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      // TODO: add EMIT event to pass value to parent component or save in vuex state
+
+      // Close edit mode after submission
+      this.showSummaryMode();
     },
   },
 };
@@ -160,16 +182,30 @@ export default {
   font-weight: 400;
   color: #413c3c;
   line-height: 28px;
+
+  .form-control {
+    border-bottom: 1px solid #9c9c9c;
+    border-radius: 0px;
+    width: auto;
+    min-width: 75%;
+
+    &:active,
+    &:focus {
+      border-bottom: 1px solid #2b0a57;
+    }
+  }
 }
 
 .customer-contact-details {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: white;
   min-height: 55px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  padding: 10px 22px;
 
   .section-label {
     font-size: 14px;
@@ -178,6 +214,11 @@ export default {
     letter-spacing: 0px;
     text-align: left;
     color: #413c3c;
+  }
+
+  @media screen and (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
 
@@ -239,7 +280,7 @@ export default {
 
 .form-control {
   outline: none;
-  text-align: center;
+  text-align: left;
   font-size: 18px;
   font-weight: 400;
   color: #413c3c;
@@ -247,12 +288,86 @@ export default {
   border: none;
   box-shadow: none;
   background-color: transparent;
+  margin-left: 8px;
 
   &:focus {
     border: none;
     box-shadow: none;
     background-color: transparent;
     outline: none;
+  }
+}
+
+.form-group::v-deep {
+  & > div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form-control {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: #413c3c;
+      padding: 0;
+      border-bottom: 1px solid #9c9c9c;
+      border-radius: 0px;
+      width: auto;
+
+      &:active,
+      &:focus {
+        border-bottom: 1px solid #2b0a57;
+      }
+
+      &.phone {
+        min-width: 100px;
+        width: auto;
+      }
+
+      &.email {
+      }
+    }
+
+    .invalid-feedback {
+      position: absolute;
+      top: auto;
+      bottom: -16px;
+      left: 24px;
+      font-size: 10px;
+      font-weight: 100;
+    }
+  }
+
+  &.is-invalid {
+    & > div .form-control {
+      border-bottom: 1px solid var(--validation-error);
+    }
+  }
+}
+
+.edit-view {
+  .customer-contact-details {
+    background-color: #f8f5fc;
+    justify-content: flex-start;
+  }
+  label {
+    margin-bottom: 11px;
+    padding-left: 11px;
+
+    @media screen and (min-width: $breakpoint-md) {
+      margin-bottom: 0;
+      padding-left: 0;
+    }
+  }
+  .form-group::v-deep {
+    padding-left: 0;
+    margin-bottom: 22px;
+
+    @media screen and (min-width: $breakpoint-md) {
+      padding-left: 44px;
+      margin-bottom: 0;
+    }
   }
 }
 </style>
