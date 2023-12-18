@@ -135,17 +135,18 @@
 
         <b-row>
           <b-col sm="12" md="12" lg="12">
-            <hr />
-            Or<br />
+            <FormSeparator value="Or" />
 
             <b-form-checkbox
               v-model="isManualModeOn"
               name="check-button"
-              switch
+              :switch="true"
+              class="switch"
             >
               Add address manually
-              <b>(Checked: {{ isManualModeOn }})</b></b-form-checkbox
-            >
+            </b-form-checkbox>
+
+            <FormSeparator />
           </b-col>
         </b-row>
       </b-container>
@@ -157,9 +158,12 @@
 // This component has two modes: automatic and manual
 
 import { required } from "vuelidate/lib/validators";
-
+import FormSeparator from "./../ui/FormSeparator.vue";
 export default {
   name: "CustomerPersonalInformation",
+  components: {
+    FormSeparator,
+  },
   data() {
     return {
       isManualModeOn: false,
@@ -276,10 +280,6 @@ h2 {
     padding: 0 6px;
   }
 
-  // label + .form-control:focus {
-  //   background-color: red;
-  // }
-
   &.empty {
     label {
       top: 20px;
@@ -301,5 +301,15 @@ h2 {
   border-color: #e9e9e9;
   height: 48px;
   padding: 0 22px;
+}
+
+.switch::v-deep {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .custom-control-input {
+    margin-right: 12px;
+  }
 }
 </style>
