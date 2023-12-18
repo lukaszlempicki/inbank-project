@@ -40,3 +40,61 @@ body {
   font-weight: 400;
   color: #413c3c;
 }
+
+.modal {
+  backdrop-filter: blur(10px);
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #413c3c;
+}
+
+.modal-header,
+.modal-footer {
+  border: none;
+}
+
+.modal-header {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 26px 26px 0;
+
+  h5 {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0px;
+    text-align: left;
+    padding: 40px 0 0;
+  }
+
+  .close {
+    margin-left: -10px;
+  }
+}
+.modal-body {
+  padding: 26px;
+}
+
+.modal-content {
+  font-weight: 300;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  text-align: left;
+  color: #413c3c;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0px 4px 10px 0px #82828240;
+}
+
+.modal-footer {
+  button {
+    display: none;
+  }
+}

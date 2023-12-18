@@ -8,11 +8,34 @@
       <b-form-checkbox v-model="noPEPInFamily"
         >Neither I nor my family member is PEP</b-form-checkbox
       >
-      <b-icon
-        icon="info-circle"
-        style="color: var(--primary-color)"
-        class="tooltip-icon"
-      ></b-icon>
+
+      <b-button v-b-modal.modal-1 class="tooltip-button">
+        <b-icon icon="info-circle" style="color: var(--primary-color)"></b-icon>
+      </b-button>
+
+      <b-modal id="modal-1" centered cancel-disabled ok-disabled title="PEP">
+        <template #modal-header="{ close }">
+          <!-- Emulate built in modal header close button action -->
+          <b-button size="sm" variant="default" @click="close()" class="close">
+            <b-img
+              class="logo"
+              center
+              :src="require('../../../src/assets/images/icons/close.svg')"
+              alt="InBank logo"
+            />
+          </b-button>
+          <h5>PEP</h5>
+        </template>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </b-modal>
     </div>
 
     <PEP v-if="!noPEPInFamily" />
@@ -21,11 +44,40 @@
       <b-form-checkbox v-model="isUltimateBeneficiaryCustomer"
         >I’m the ultimate beneficiary
       </b-form-checkbox>
-      <b-icon
-        icon="info-circle"
-        style="color: var(--primary-color)"
-        class="tooltip-icon"
-      ></b-icon>
+
+      <b-button v-b-modal.modal-2 class="tooltip-button">
+        <b-icon icon="info-circle" style="color: var(--primary-color)"></b-icon>
+      </b-button>
+
+      <b-modal
+        id="modal-2"
+        centered
+        cancel-disabled
+        ok-disabled
+        title="Ultimate Beneficiary"
+      >
+        <template #modal-header="{ close }">
+          <!-- Emulate built in modal header close button action -->
+          <b-button size="sm" variant="default" @click="close()" class="close">
+            <b-img
+              class="logo"
+              center
+              :src="require('../../../src/assets/images/icons/close.svg')"
+              alt="InBank logo"
+            />
+          </b-button>
+          <h5>Ultimate Beneficiary</h5>
+        </template>
+        <p class="my-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </b-modal>
     </div>
 
     <AdditionalBeneficiary v-if="isUltimateBeneficiaryCustomer" />
@@ -89,10 +141,16 @@ export default {
     position: relative;
   }
 
-  .tooltip-icon {
+  .tooltip-button {
     position: absolute;
-    top: 26px;
     right: 0;
+    background-color: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    top: 16px;
   }
 
   .btn-continue {
