@@ -20,3 +20,23 @@ body {
   font-size: 10px;
   color: var(--primary-color);
 }
+
+// b-checkbox
+.custom-control {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.custom-control-input {
+  margin-right: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.custom-control-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #413c3c;
+}

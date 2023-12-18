@@ -310,6 +310,15 @@ h2 {
 
   .custom-control-input {
     margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .custom-control-label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #413c3c;
   }
 }
 </style>
