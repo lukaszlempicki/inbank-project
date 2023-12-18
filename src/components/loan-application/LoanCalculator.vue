@@ -142,7 +142,7 @@
             <span class="currency">{{ this.currency }}</span>
           </div>
 
-          <b-button type="submit" pill class="btn-save" @click="submitForm">
+          <b-button type="button" pill class="btn-save" @click="submitForm">
             <b-icon
               icon="chevron-right"
               style="color: var(--primary-color)"
