@@ -151,6 +151,48 @@ export default {
 <style lang="scss" scoped>
 .pep {
   margin-top: 22px;
-  background-color: #f1f1f1;
+}
+
+.container {
+  padding: 0;
+}
+
+.form-group::v-deep {
+  position: relative;
+  padding: 8px 0;
+
+  label {
+    position: absolute;
+    top: -2px;
+    left: 14px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    color: #413c3c;
+    background-color: #fff;
+    padding: 0 6px;
+  }
+
+  &.empty {
+    label {
+      top: 20px;
+      left: 12px;
+      font-size: 16px;
+      color: #413c3c;
+      padding: 0 6px;
+    }
+  }
+}
+
+.form-control {
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+  border-color: #e9e9e9;
+  height: 48px;
+  padding: 0 22px;
 }
 </style>
