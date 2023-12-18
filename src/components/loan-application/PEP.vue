@@ -108,6 +108,7 @@ export default {
   name: "PEP",
   data() {
     return {
+      formSubmitted: false,
       form: {
         relationshipToThePep: "",
         pepRegion: "",

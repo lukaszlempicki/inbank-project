@@ -93,7 +93,9 @@
     </template>
 
     <div class="reduced-width">
-      <b-button variant="primary" class="btn-continue">Continue</b-button>
+      <b-button type="button" variant="primary" class="btn-continue"
+        >Continue</b-button
+      >
     </div>
   </b-form>
 </template>
